@@ -1,0 +1,1 @@
+# functional-style-operations
