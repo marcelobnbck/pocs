@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="exception" />
+        <module name="rockband" />
+        <module name="SpringCoreValue" />
+        <module name="java-main-annotations" />
+        <module name="rest-client" />
+        <module name="timing" />
+        <module name="todo-app" />
+        <module name="Dates" />
+        <module name="batch-processing" />
+        <module name="dungeon-rescue" />
+        <module name="graphql-application" />
+        <module name="multi" />
+        <module name="webclient-demo" />
+        <module name="key" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="dungeon-rescue" options="-parameters" />
+      <module name="rockband" options="-parameters" />
+    </option>
+  </component>
+</project>
