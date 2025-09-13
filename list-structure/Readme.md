@@ -1,0 +1,1 @@
+This code demonstrates the basic features and uses of each of List structures, helping to review and understand when to use each of them depending on application's needs.

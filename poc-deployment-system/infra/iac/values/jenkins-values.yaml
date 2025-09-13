@@ -1,0 +1,110 @@
+controller:
+  serviceAccount: jenkins-sa
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - docker-workflow
+    - blueocean
+    - configuration-as-code
+    - credentials-binding
+    - nodejs
+    - github
+    - job-dsl
+  admin:
+    username: admin
+    existingSecret: jenkins-admin-secret
+    userKey: username
+    passwordKey: password
+  serviceType: NodePort
+  ingress:
+    enabled: false
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+  additionalExistingSecrets:
+    - name: jenkins-ghcr-secret
+      keyName: username
+    - name: jenkins-ghcr-secret
+      keyName: token
+    - name: jenkins-admin-secret
+      keyName: password
+  JCasC:
+    enabled: true
+    configScripts:
+      jenkins-casc-configs: |
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                  - usernamePassword:
+                      scope: GLOBAL
+                      id: "ghcr-creds"
+                      username: "${jenkins-ghcr-secret-username}"
+                      password: "${jenkins-ghcr-secret-token}"
+                      description: "GitHub Container Registry credentials"
+
+        tool:
+          nodejs:
+            installations:
+              - name: "nodejs"
+                home: ""
+                properties:
+                  - installSource:
+                      installers:
+                        - nodeJSInstaller:
+                            id: "22.11.0"
+                            npmPackagesRefreshHours: 72
+                            npmPackages: "npm@latest yarn@latest"
+      main-config: |
+        jobs:
+          - script: >
+              multibranchPipelineJob('poc-deployment-system') {
+                branchSources {
+                  git {
+                    id('poc-deployment-system-git')
+                    remote('https://github.com/brscherer/poc-deployment-system')
+                    credentialsId('ghcr-creds')
+                  }
+                }
+                factory {
+                  workflowBranchProjectFactory {
+                    scriptPath('Jenkinsfile')
+                  }
+                }
+                orphanedItemStrategy {
+                  discardOldItems {
+                    daysToKeep(30)
+                    numToKeep(10)
+                  }
+                }
+              }
+
+agent:
+  podName: jenkins-agent
+  namespace: infra
+  serviceAccount: jenkins-sa
+  enabled: true
+  runAsUser: 0
+  image:
+    registry: ghcr.io
+    repository: brscherer/jenkins-agent
+    tag: latest
+    pullPolicy: Always
+  customJenkinsLabels: "infra jenkins"
+  privileged: true
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 1
+      memory: 2Gi
+
+persistence:
+  enabled: true
+  size: 8Gi
