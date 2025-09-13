@@ -22,7 +22,7 @@ RockBand Music Service is a Spring Boot application that manages rock bands and 
 ## Getting Started
 Clone the Repository
 ```bash
-git clone https://github.com/marcelobnbck/rockband-music-service.git
+git clone https://github.com/marcelobnbck/pocs.git
 cd rockband-music-service
 ```
 
