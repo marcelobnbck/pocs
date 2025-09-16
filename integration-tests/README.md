@@ -27,8 +27,8 @@ docker --version
 
 ### 2. Clone & Build
 ```bash
-git clone https://github.com/marcelobnbck/integration-tests
-cd todo-app
+git clone https://github.com/marcelobnbck/pocs.git
+cd integration-tests
 mvn clean package
 ```
 
