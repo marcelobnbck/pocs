@@ -2,27 +2,34 @@ package org.example;
 
 import java.sql.*;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class StressTestDetailed {
 
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postres";
+    // Database connection settings
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "admin";
 
-    private static final int THREADS = 20;
-    private static final int TASKS_PER_THREAD = 1000;
+    // Stress test settings
+    private static final int THREADS = 20;            // Number of concurrent threads
+    private static final int TASKS_PER_THREAD = 1000; // Number of operations per thread
 
-    private static final int INSERT_RATIO = 40;
-    private static final int SELECT_RATIO = 40;
-    private static final int UPDATE_RATIO = 10;
-    private static final int DELETE_RATIO = 10;
+    // Workload ratios (must add up to 100)
+    private static final int INSERT_RATIO = 40; // 40%
+    private static final int SELECT_RATIO = 40; // 40%
+    private static final int UPDATE_RATIO = 10; // 10%
+    private static final int DELETE_RATIO = 10; // 10%
 
+    // Metrics (global)
     private static final AtomicLong totalOps = new AtomicLong(0);
     private static final AtomicLong totalTimeNanos = new AtomicLong(0);
     private static final AtomicLong errors = new AtomicLong(0);
 
+    // Per-operation metrics
     private static final AtomicLong insertOps = new AtomicLong(0);
     private static final AtomicLong insertTime = new AtomicLong(0);
 
@@ -112,14 +119,14 @@ public class StressTestDetailed {
 
                         try {
                             switch (op) {
-                                case 1:
+                                case 1: // INSERT
                                     insertStmt.setInt(1, workerId);
                                     insertStmt.setInt(2, random.nextInt(1000));
                                     insertStmt.executeUpdate();
                                     insertOps.incrementAndGet();
                                     insertTime.addAndGet(System.nanoTime() - startOp);
                                     break;
-                                case 2:
+                                case 2: // SELECT
                                     selectStmt.setInt(1, workerId);
                                     try (ResultSet rs = selectStmt.executeQuery()) {
                                         while (rs.next()) {
@@ -129,14 +136,14 @@ public class StressTestDetailed {
                                     selectOps.incrementAndGet();
                                     selectTime.addAndGet(System.nanoTime() - startOp);
                                     break;
-                                case 3:
+                                case 3: // UPDATE
                                     updateStmt.setInt(1, random.nextInt(1000));
                                     updateStmt.setInt(2, workerId);
                                     updateStmt.executeUpdate();
                                     updateOps.incrementAndGet();
                                     updateTime.addAndGet(System.nanoTime() - startOp);
                                     break;
-                                case 4:
+                                case 4: // DELETE
                                     deleteStmt.setInt(1, workerId);
                                     deleteStmt.executeUpdate();
                                     deleteOps.incrementAndGet();
@@ -170,4 +177,3 @@ public class StressTestDetailed {
         }
     }
 }
-
