@@ -25,7 +25,7 @@ It allows you to simulate high-concurrency workloads (inserts, selects, updates,
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```yaml
 src/
