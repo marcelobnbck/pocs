@@ -28,12 +28,11 @@ It allows you to simulate high-concurrency workloads (inserts, selects, updates,
 ## Project Structure
 
 ```yaml
-src/
-└── main/java/org/example/
-├── StressTestDetailed.java # Main stress test runner 
-└── test/java/org/example/
-├── StressTestDetailedTest.java # Unit tests
-├── StressTestDetailedTestHelper.java # Test helper for metrics printing
+main/java/org/example/
+StressTestDetailed.java # Main stress test runner 
+test/java/org/example/
+StressTestDetailedTest.java # Unit tests
+StressTestDetailedTestHelper.java # Test helper for metrics printing
 ```
 
 ---
