@@ -24,4 +24,3 @@ public class BookRepository {
         return em.createQuery("SELECT b FROM Book b", Book.class).getResultList();
     }
 }
-
