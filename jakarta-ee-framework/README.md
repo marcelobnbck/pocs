@@ -82,6 +82,6 @@ curl http://localhost:8080/jakartaee-demo/api/books/1
 - Maven
 
 ## 📝 Notes
-The persistence unit (`persistence.xml`) is configured with **H2 in-memory DB**.
-On server restart, data is cleared (DB in-memory mode).
-To use MySQL, PostgreSQL, or another DB, just update `persistence.xml`.
+- The persistence unit (`persistence.xml`) is configured with **H2 in-memory DB**.
+- On server restart, data is cleared (DB in-memory mode).
+- To use MySQL, PostgreSQL, or another DB, just update `persistence.xml`.
