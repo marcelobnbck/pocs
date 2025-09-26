@@ -27,7 +27,7 @@ class Employee {
     private transient double salary;
 
     @Expose
-    private LocalDate hireDate;
+    LocalDate hireDate;
 
     public Employee(String name, int age, String jobTitle, Address address,
                     List<String> skills, double salary, LocalDate hireDate) {
