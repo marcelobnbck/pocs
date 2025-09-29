@@ -5,6 +5,16 @@ option java_package = "org.example.grpc";
 option java_outer_classname = "HelloServiceProto";
 
 service HelloService {
+  // Unary RPC
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+
+  // Server streaming RPC
+  rpc LotsOfReplies (HelloRequest) returns (stream HelloResponse);
+
+  // Client streaming RPC
+  rpc LotsOfGreetings (stream HelloRequest) returns (HelloResponse);
+
+  // Bidirectional streaming RPC
   rpc SayHello (HelloRequest) returns (HelloResponse);
 
   rpc LotsOfReplies (HelloRequest) returns (stream HelloResponse);
