@@ -104,3 +104,9 @@ public class HelloServer {
         }
     }
 }
+    public static void main(String[] args) throws IOException, InterruptedException {
+        final HelloServer server = new HelloServer();
+        server.start();
+    }
+
+}
