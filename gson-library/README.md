@@ -5,7 +5,7 @@ It includes nested objects, custom type adapters, annotations for field control,
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```markdown
 gson-library/
@@ -28,7 +28,7 @@ gson-library/
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Serialization & Deserialization**
     - Convert Java objects to JSON and back.
@@ -45,14 +45,14 @@ gson-library/
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 - Java 17+
 - Maven 3+
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 Main dependencies in `pom.xml`:
 
@@ -77,7 +77,7 @@ Main dependencies in `pom.xml`:
 
 ---
 
-## ▶️ Running the Project
+## Running the Project
 
 To run the demo:
 
@@ -92,7 +92,7 @@ This will:
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 mvn clean test
