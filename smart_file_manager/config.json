@@ -1,0 +1,16 @@
+{
+  "watch_folder": "C:/Users/marce/Downloads",
+  "destinations": {
+    "Images": [".jpg", ".jpeg", ".png", ".gif"],
+    "Documents": [".pdf", ".docx", ".txt", ".xlsx"],
+    "Videos": [".mp4", ".avi", ".mov"],
+    "Music": [".mp3", ".wav"],
+    "Archives": [".zip", ".rar", ".tar", ".gz"]
+  },
+  "size_rules": {
+    "LargeFiles": 100000000
+  },
+  "cleanup_days": 30,
+  "notifications": true
+}
+
