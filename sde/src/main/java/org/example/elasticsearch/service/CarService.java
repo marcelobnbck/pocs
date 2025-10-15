@@ -12,7 +12,7 @@ public class CarService {
     private CarRepository repo;
 
     public void demo() {
-        repo.save(new Car("1", "Tesla", "Model S", 2024));
+        repo.save(new Car("1", "Tesla", "Model S", 2025));
         repo.findByBrand("Tesla").forEach(System.out::println);
     }
 
