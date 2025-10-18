@@ -7,10 +7,17 @@ A simple example project demonstrating how to use a **generic Converter interfac
 - Converts between `String`, `MusicGenre`, and `GenreInfo`
 - Includes unit tests using **JUnit 5**
 
-## Build & Run
+## Build, Package & Run
+
+Build project:
 ```bash
 mvn clean compile
-mvn exec:java -Dexec.mainClass="com.example.music-interface-converter.Main"
+```
+
+Package and run (no external deps):
+```bash
+mvn -DskipTests package
+java -cp target/classes org.example.musicconverter.Main
 ```
 
 ## Run Tests

@@ -1,7 +1,7 @@
 package org.example.musicconverter;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConverterTest {
     @Test
@@ -17,6 +17,6 @@ class ConverterTest {
         Converter<String, String> trim = String::trim;
         Converter<String, Integer> length = String::length;
         Converter<String, Integer> composed = length.compose(trim);
-        assertEquals(3, composed.convert(" hi "));
+        assertEquals(2, composed.convert(" hi "));
     }
 }
