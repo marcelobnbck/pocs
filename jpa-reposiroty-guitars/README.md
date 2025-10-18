@@ -24,6 +24,20 @@ mvn spring-boot:run
 API endpoints (running at http://localhost:8080):
 - `GET /api/guitars` - list guitars
 - `POST /api/guitars` - create guitar (JSON body)
+```json
+{
+  "brand": "Fender",
+  "model": "Stratocaster",
+  "type": "electric",
+  "strings": 6
+}
+```
+
+## H2 console:
+if running: http://localhost:8080/h2-console
+- JDBC URL: jdbc:h2:mem:guitars
+- Username: Configured in application.properties file;
+- Password: Configured in application.properties file.
 
 ## Tests
 
@@ -32,6 +46,3 @@ Run:
 mvn test
 ```
 
-## Project structure
-
-Standard Maven layout with `src/main/java`, `src/test/java`. Uses H2 by default.
