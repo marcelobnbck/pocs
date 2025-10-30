@@ -3,15 +3,15 @@
 ## Overview
 This project demonstrates a simple **Kafka Streams** app that performs a real-time word count.
 
-- Reads text from input topic `text-input`
-- Splits lines into words
-- Counts word occurrences
-- Writes results to output topic `word-count-output`
+- Reads text from input topic `text-input`;
+- Splits lines into words;
+- Counts word occurrences;
+- Writes results to output topic `word-count-output`.
 
 ## Requirements
-- Java 21+
-- Maven 3.8+
-- Docker & Docker Compose
+- Java 21+;
+- Maven 3.8+;
+- Docker & Docker Compose.
 
 ## Run Instructions
 
