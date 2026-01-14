@@ -1,0 +1,8 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: org.example.recipes
+displayName: Replace System.out.println with Logger
+description: Replace System.out.println calls with logger.info
+recipeList:
+  - org.openrewrite.java.ReplaceMethodCall:
+      methodPattern: 'java.io.PrintStream println(..)'
+      replacement: 'logger.info(..)'
