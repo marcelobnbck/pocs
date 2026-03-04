@@ -54,12 +54,15 @@ public class ReminderApp {
     }
 
     private static void printMenu() {
-        System.out.println("\nREMINDER APP\n");
-        System.out.println("1 - Add Reminder");
-        System.out.println("2 - Edit Reminder");
-        System.out.println("3 - Remove Reminder");
-        System.out.println("4 - List Reminders");
-        System.out.println("5 - Exit");
+        System.out.println(" ------------------- ");
+        System.out.println("|    REMINDER APP   |");
+        System.out.println(" ------------------- ");
+        System.out.println("|1 - Add Reminder   |");
+        System.out.println("|2 - Edit Reminder  |");
+        System.out.println("|3 - Remove Reminder|");
+        System.out.println("|4 - List Reminders |");
+        System.out.println("|5 - Exit           |");
+        System.out.println(" ------------------- ");
     }
 
     private static void addReminder() {
