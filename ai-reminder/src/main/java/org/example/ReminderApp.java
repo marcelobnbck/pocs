@@ -1,5 +1,7 @@
 package org.example;
 
+import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -133,6 +135,40 @@ public class ReminderApp {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
             }
+        }
+    }
+
+    private static final GoogleAiGeminiChatModel model = GoogleAiGeminiChatModel.builder()
+            .apiKey(System.getenv("GEMINI_API_KEY"))
+            .modelName("gemini-1.5-flash")
+            .build();
+
+    private static void addReminder() {
+        System.out.print("What is the reminder? ");
+        String rawInput = scanner.nextLine();
+
+        String prompt = "Transform this messy reminder into a clear JSON object with 'title' and 'description' keys. "
+                + "Input: " + rawInput;
+
+        try {
+            System.out.println("AI is thinking...");
+            String aiResponse = model.generate(prompt);
+
+            System.out.println("AI Suggested: " + aiResponse);
+
+            reminders.add(new Reminder("AI Suggested Title", aiResponse));
+            System.out.println("Reminder added!");
+        } catch (Exception e) {
+            System.out.println("AI failed, falling back to manual entry.");
+
+            System.out.print("Enter title: ");
+            String title = scanner.nextLine();
+
+            System.out.print("Enter description: ");
+            String description = scanner.nextLine();
+
+            reminders.add(new Reminder(title, description));
+            System.out.println("Reminder added!");
         }
     }
 }
