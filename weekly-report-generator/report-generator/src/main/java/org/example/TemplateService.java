@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -22,15 +23,15 @@ public class TemplateService {
     }
 
     public String createFinalReport(Map<String, Object> data) throws IOException {
-        Template template = handlebars.compile("report");
+        Template template = handlebars.compile("weekly-report");
         return template.apply(data);
     }
 
-    public void saveFile (String content) throws IOException {
+    public void saveFile(String content) throws IOException {
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HHmm"));
         String fileName = "1:1-Weekly-Report_" + timestamp + ".txt";
 
-        Path path = Path.of("reports");
+        Path path = Paths.get("reports");
         if (!Files.exists(path)) {
             Files.createDirectory(path);
         }
