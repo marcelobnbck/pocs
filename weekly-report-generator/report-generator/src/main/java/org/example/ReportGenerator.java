@@ -26,5 +26,4 @@ public class ReportGenerator {
         // TODO Handlebars library to read .hbs file
         System.out.println(context);
     }
-
 }
