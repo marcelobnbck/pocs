@@ -3,7 +3,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-class GenericListWrapper<T> {
+class GenericsListWrapper<T> {
     private List<T> items = new ArrayList<>();
 
     public void add(T item) {
@@ -19,7 +19,7 @@ class GenericListWrapper<T> {
     }
 
     public static void main(String[] args) {
-        GenericListWrapper<String> repo = new GenericListWrapper<>();
+        GenericsListWrapper<String> repo = new GenericsListWrapper<>();
         repo.add("Java");
         repo.add("Python");
 
