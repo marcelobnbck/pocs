@@ -1,0 +1,27 @@
+# Generics in Java
+
+- Introduced in Java 5
+- Define classes, interfaces, and methods with type parameters `(<T>)`
+- Ensure type safety at compile time
+- Eliminate the need for explicit casting
+- Increase code reuse
+- Avoid common `ClassCastException` errors.
+- Parameter Naming Conventions:
+  - **T** - Type
+  - **E** - Element (collection element)
+  - **K** - Key
+  - **V** - Value
+  - **N** - Number
+- Are processed by the compiler and removed at runtime (type erasure)
+- Do not work with primitive types (int, char, etc.)
+- For this, wrapper classes (Integer, Character, etc.) must be used
+  - Wrapper classes are classes that encapsulate primitive types in objects.
+  - Belong to the java.lang package
+  - Allow the use of primitives in object-oriented contexts, such as collections (ArrayList, Vector)
+- Wildcards (?) and Boundaries:
+  - `<?>`: Accepts any type (Unbounded Wildcard).
+    - Represents "any type" (?), making it useful when the operation is independent of the specific type contained.
+  - `<? extends T>`: Upper Bounded. Accepts type T or its subclasses (reads data)
+    - Restricts an unknown type to be type T or a subclass of it
+    - Essential for polymorphism
+  - `<? super T>`: Lower Bounded. Accepts type T or its superclasses (inserts data).
