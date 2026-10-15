@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/nfe-extractor/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/npm_ai_audit/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/smart_file_manager/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/xml-xls-converter/.venv" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
