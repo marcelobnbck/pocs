@@ -1,1 +1,0 @@
-# function-bifunction-functional-interfaces

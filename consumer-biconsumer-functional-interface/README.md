@@ -1,1 +1,0 @@
-# consumer-biconsumer-functional-interface
