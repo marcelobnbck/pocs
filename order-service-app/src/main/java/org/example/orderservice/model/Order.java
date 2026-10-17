@@ -1,48 +1,44 @@
 package org.example.orderservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.Instant;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 120)
     private String customer;
-    private Double totalAmount;
 
-    public Order() {
+    @Column(name = "total_amount", nullable = false, precision = 19, scale = 2)
+    private BigDecimal totalAmount;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+
+    protected Order() {
     }
 
-    public Order(Long id, String customer, Double totalAmount) {
-        this.id = id;
+    public Order(String customer, BigDecimal totalAmount) {
         this.customer = customer;
         this.totalAmount = totalAmount;
     }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCustomer() {
-        return customer;
-    }
-    public void setCustomer(String customer) {
-        this.customer = customer;
+    @PrePersist
+    void onCreate() {
+        if (createdAt == null) {
+            createdAt = Instant.now();
+        }
     }
 
-    public Double getTotalAmount() {
-        return totalAmount;
-    }
-    public void setTotalAmount(Double totalAmount) {
-        this.totalAmount = totalAmount;
-    }
+    public Long getId() { return id; }
+    public String getCustomer() { return customer; }
+    public BigDecimal getTotalAmount() { return totalAmount; }
+    public Instant getCreatedAt() { return createdAt; }
 }
