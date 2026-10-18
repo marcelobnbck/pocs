@@ -1,39 +1,43 @@
 package org.example;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 record Order(int orderId, String dish) {
-
     @Override
     public String toString() {
         return "Order #" + orderId + " - " + dish;
     }
 }
 
-// Producer: Chefs preparing orders
 class Chef implements Runnable {
-    private final BlockingQueue<Order> queue;
+    private final BlockingQueue<Order> orderQueue;
     private final String name;
-    private static int orderCounter = 1;
+    private static final AtomicInteger orderCounter = new AtomicInteger(1);
 
-    public Chef(BlockingQueue<Order> queue, String name) {
-        this.queue = queue;
+    public Chef(BlockingQueue<Order> orderQueue, String name) {
+        this.orderQueue = orderQueue;
         this.name = name;
     }
 
     @Override
     public void run() {
-        try {
-            while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
                 String dish = pickRandomDish();
-                Order order = new Order(orderCounter++, dish);
-                System.out.println(name + " prepared " + order);
-                queue.put(order); // Add order to the queue
-                Thread.sleep(700); // simulate prep time
+                Order order = new Order(orderCounter.getAndIncrement(), dish);
+
+                System.out.println(name + " is preparing: " + order);
+                Thread.sleep(700);
+
+                orderQueue.put(order);
+                System.out.println(name + " placed it on the counter: " + order);
+
+            } catch (InterruptedException e) {
+                break;
             }
-        } catch (InterruptedException e) {
-            System.out.println(name + " has finished cooking for the day!");
         }
+        System.out.println(name + " cleaned his workstation and left!");
     }
 
     private String pickRandomDish() {
@@ -42,50 +46,52 @@ class Chef implements Runnable {
     }
 }
 
-// Consumer: Waiters serving orders
 class Waiter implements Runnable {
-    private final BlockingQueue<Order> queue;
+    private final BlockingQueue<Order> orderQueue;
     private final String name;
 
-    public Waiter(BlockingQueue<Order> queue, String name) {
-        this.queue = queue;
+    public Waiter(BlockingQueue<Order> orderQueue, String name) {
+        this.orderQueue = orderQueue;
         this.name = name;
     }
 
     @Override
     public void run() {
-        try {
-            while (true) {
-                Order order = queue.take(); // Wait for order
-                System.out.println(name + " served " + order);
-                Thread.sleep(500); // simulate serving time
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                Order order = orderQueue.take();
+                System.out.println(name + " took it to serve: " + order);
+
+                Thread.sleep(1200);
+                System.out.println("[SUCCESS] " + name + " delivered " + order);
+
+            } catch (InterruptedException e) {
+                break;
             }
-        } catch (InterruptedException e) {
-            System.out.println(name + " has ended their shift!");
         }
+        System.out.println(name + " finished their shift!");
     }
 }
 
 public class Restaurant {
     public static void main(String[] args) throws InterruptedException {
-        BlockingQueue<Order> orderQueue = new ArrayBlockingQueue<>(10);
-        ExecutorService executor = Executors.newCachedThreadPool();
+        BlockingQueue<Order> orderQueue = new ArrayBlockingQueue<>(3);
 
-        // Start chefs
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+
+        System.out.println("--- Restaurant Open ---");
         executor.execute(new Chef(orderQueue, "Chef Miguel"));
         executor.execute(new Chef(orderQueue, "Chef Matheus"));
-
-        // Start waiters
         executor.execute(new Waiter(orderQueue, "Waiter Marcelo"));
-        executor.execute(new Waiter(orderQueue, "Waiter Mariana"));
+        executor.execute(new Waiter(orderQueue, "Waitress Mariana"));
 
-        // Simulation run for 5 seconds
         Thread.sleep(5000);
 
-        // Shut down
+        System.out.println("\n--- Closing the Restaurant (Interrupting threads)... ---");
         executor.shutdownNow();
-        executor.awaitTermination(2, TimeUnit.SECONDS);
 
-        System.out.println("Restaurant is now closed!");
+        if (executor.awaitTermination(2, TimeUnit.SECONDS)) {
+            System.out.println("Restaurant securely closed!");
+        }
     }
 }
