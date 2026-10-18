@@ -12,7 +12,7 @@ It also includes **JUnit 5 tests** to validate the batch process.
 - Minimal dependencies — only Java and JUnit.
 
 ## Technologies
-- **Java 21 (Coretto 21.0.8)**
+- **Java 17**
 - **JUnit 5** for testing
 - **Maven 3.9.11** for build and dependency management
 
@@ -28,11 +28,9 @@ It also includes **JUnit 5 tests** to validate the batch process.
 
 ## Running the Application
 
-### 1. Compile and Run with Maven
+### 1. Compile and Run
 ```bash
-mvn clean compile exec:java \
-    -Dexec.mainClass=BatchProcessing \
-    -Dexec.args="input_file.csv output_file.csv"
+mvn spring-boot:run
 ```
 
 ### 2. Example Input (input_file.csv)
